@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#69b89a">
+<meta name="description" content="GeoSolve Advanced — quadrilateral formulas, properties, missing values, angles, diagonals, and guided word-problem solving.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="GeoSolve">
+<link rel="manifest" href="manifest.webmanifest">
+<title>GeoSolve — Advanced Geometry Solver</title>
+<style>
+:root{--g:#69b89a;--gd:#3f8f72;--gs:#dff3e9;--mint:#eefaf4;--cream:#fffdf7;--text:#274238;--muted:#6d8178;--white:#fff;--line:#d8e9e0;--shadow:0 14px 35px rgba(63,143,114,.14);--danger:#b44c4c}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:linear-gradient(135deg,#effaf5,#fffdf7 55%,#e8f7ef)}
+button,input,textarea,select{font:inherit}button{cursor:pointer}.app{max-width:1100px;margin:auto;padding:20px}.screen{display:none;animation:fade .22s ease}.screen.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.home{min-height:calc(100vh - 40px);display:flex;align-items:center;justify-content:center}.hero{width:min(760px,100%);text-align:center;padding:46px 26px;background:rgba(255,255,255,.86);border:1px solid var(--line);border-radius:34px;box-shadow:var(--shadow)}.logo{width:108px;height:108px;margin:auto auto 20px;border-radius:32px;background:var(--g);display:grid;place-items:center;color:#fff;font-size:0;box-shadow:0 12px 25px rgba(63,143,114,.22);position:relative}.logo:after{content:"△";font-size:55px}.logo:before{content:"";position:absolute;width:25px;height:25px;border:4px solid #fff;border-radius:50%;right:20px;bottom:19px}
+h1{font-size:49px;letter-spacing:-2px;margin:0 0 8px}.tagline{font-size:18px;color:var(--muted);margin:0 auto 25px}.primary{border:0;background:var(--g);color:#fff;padding:14px 24px;border-radius:15px;font-weight:800;box-shadow:0 8px 18px rgba(63,143,114,.2);transition:.18s}.primary:hover{background:var(--gd);transform:translateY(-1px)}.secondary{border:1px solid var(--line);background:#fff;color:var(--gd);padding:11px 16px;border-radius:13px;font-weight:750}.small-note{font-size:13px;color:var(--muted);margin-top:15px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}.brand{font-weight:900;font-size:21px;color:var(--gd)}.back{border:1px solid var(--line);background:#fff;color:var(--gd);padding:10px 15px;border-radius:12px;font-weight:700}.title{font-size:34px;margin:8px 0}.subtitle{color:var(--muted);margin:0 0 22px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.card{border:1px solid var(--line);background:rgba(255,255,255,.9);border-radius:21px;padding:20px;box-shadow:0 7px 20px rgba(63,143,114,.07);transition:.18s}.choice{min-height:165px;text-align:left}.choice:hover,.feature:hover{transform:translateY(-3px);border-color:#a9d8c3;box-shadow:var(--shadow)}.shape{height:72px;display:grid;place-items:center;color:var(--gd);font-size:55px;font-weight:700}.choice h3{margin:8px 0 5px}.choice p,.feature p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}.feature{text-align:left}.feature .icon{width:46px;height:46px;border-radius:14px;background:var(--gs);display:grid;place-items:center;color:var(--gd);font-weight:900;font-size:20px;margin-bottom:10px}
+.problem-grid{grid-template-columns:repeat(2,1fr);max-width:850px}.problem{display:flex;align-items:center;gap:14px;text-align:left}.problem .icon{width:48px;height:48px;border-radius:15px;background:var(--gs);display:grid;place-items:center;font-weight:900;color:var(--gd);flex:none}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:17px}.tab{border:1px solid var(--line);background:#fff;padding:10px 13px;border-radius:12px;color:var(--gd);font-weight:750}.tab.active{background:var(--g);color:#fff;border-color:var(--g)}
+.solver-layout{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:24px;padding:23px;box-shadow:var(--shadow)}label{display:block;font-size:14px;font-weight:750;margin:13px 0 7px}input,textarea,select{width:100%;padding:12px 13px;border:1px solid #cfe4d9;border-radius:13px;outline:none;background:#fbfffd;color:var(--text)}textarea{min-height:130px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--g);box-shadow:0 0 0 3px var(--gs)}.solve-btn{width:100%;margin-top:18px}.formula{background:var(--mint);border-radius:15px;padding:13px;margin-top:16px;font-weight:800;color:var(--gd)}.result{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px;margin-top:14px}.answer{font-size:29px;font-weight:900;color:var(--gd);margin:3px 0 10px}.steps{line-height:1.8;color:#486157}.property-list{padding-left:20px;line-height:1.8;color:#486157}.shape-box{min-height:180px;border-radius:17px;background:var(--mint);display:grid;place-items:center;margin-bottom:16px;overflow:hidden}svg{max-width:100%;height:165px}.error{color:var(--danger);font-size:13px;margin-top:8px}.success{color:var(--gd);font-weight:750}.footer{text-align:center;color:var(--muted);font-size:12px;padding:25px 0 8px}.formula-list{display:grid;gap:10px}.formula-row{padding:14px;border:1px solid var(--line);border-radius:15px;background:#fff}.formula-row b{color:var(--gd);display:block;margin-bottom:4px}.history{max-height:300px;overflow:auto}.history-item{padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}.history-item:last-child{border-bottom:0}.hidden{display:none!important}.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--gs);color:var(--gd);font-size:12px;font-weight:800}.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+@media(max-width:800px){.grid,.solver-layout{grid-template-columns:1fr}.problem-grid{grid-template-columns:1fr}.quick{grid-template-columns:1fr}h1{font-size:40px}.title{font-size:29px}}
+</style>
+</head>
+<body>
+<div class="app">
+<section id="home" class="screen active home">
+<div class="hero">
+<div class="logo">G</div><h1>GeoSolve</h1>
+<p class="tagline">An advanced, student-friendly quadrilateral geometry solver.</p>
+<button class="primary" onclick="showScreen('choose')">START SOLVING</button>
+<button id="installBtn" class="primary hidden" style="margin:12px 0 0 8px;background:#4f9d7d">＋ INSTALL APP</button>
+<div class="quick">
+<button class="card feature" onclick="showScreen('problemText')"><div class="icon">✎</div><b>Problem Solver</b><p>Paste or type a simple geometry word problem.</p></button>
+<button class="card feature" onclick="showScreen('formulas')"><div class="icon">π</div><b>Formula Guide</b><p>Review formulas for all supported quadrilaterals.</p></button>
+<button class="card feature" onclick="showScreen('properties')"><div class="icon">★</div><b>Properties</b><p>Study sides, angles, and diagonal properties.</p></button>
+</div>
+<div class="small-note">Area • Perimeter • Angles • Diagonals • Missing Values • Properties</div>
+</div></section>
+
+<section id="choose" class="screen">
+<div class="topbar"><div class="brand">△ GeoSolve</div><button class="back" onclick="showScreen('home')">← Home</button></div>
+<h2 class="title">Choose a Quadrilateral</h2><p class="subtitle">Select the shape from your geometry problem.</p>
+<div class="grid" id="shapeGrid"></div><div class="footer">GeoSolve • Learn it, solve it, understand it.</div>
+</section>
+
+<section id="problems" class="screen">
+<div class="topbar"><div class="brand">△ GeoSolve</div><button class="back" onclick="showScreen('choose')">← Shapes</button></div>
+<h2 class="title" id="shapeTitle">Choose a Problem</h2><p class="subtitle">Choose a calculation or study option.</p>
+<div class="grid problem-grid" id="problemGrid"></div>
+</section>
+
+<section id="solver" class="screen">
+<div class="topbar"><div class="brand">△ GeoSolve</div><button class="back" onclick="showScreen('problems')">← Problems</button></div>
+<div class="tabs"><button class="tab active" id="calcTab" onclick="switchTab('calc')">Calculator</button><button class="tab" id="propTab" onclick="switchTab('prop')">Properties</button></div>
+<div class="solver-layout">
+<div class="panel"><h2 class="title" id="solverTitle">Solve</h2><p class="subtitle" id="solverSubtitle"></p><div id="shapeDiagram" class="shape-box"></div><div id="inputs"></div><div id="error" class="error"></div><button class="primary solve-btn" onclick="calculate()">SOLVE</button></div>
+<div class="panel"><h2>Solution</h2><div id="solution"><p class="subtitle">Enter the given values, then press <b>SOLVE</b>.</p></div></div>
+</div>
+</section>
+
+<section id="problemText" class="screen">
+<div class="topbar"><div class="brand">△ GeoSolve</div><button class="back" onclick="showScreen('home')">← Home</button></div>
+<h2 class="title">Problem Solver</h2><p class="subtitle">Type a simple word problem. GeoSolve recognizes common quadrilateral measurements.</p>
+<div class="solver-layout"><div class="panel">
+<label>Geometry problem</label><textarea id="wordProblem" placeholder="Example: A rectangle has a length of 12 cm and width of 5 cm. Find the area."></textarea>
+<button class="primary solve-btn" onclick="solveWordProblem()">SOLVE PROBLEM</button><div id="wordError" class="error"></div>
+</div><div class="panel"><h2>Answer</h2><div id="wordSolution"><p class="subtitle">Try an example problem above.</p></div></div></div>
+</section>
+
+<section id="formulas" class="screen">
+<div class="topbar"><div class="brand">△ GeoSolve</div><button class="back" onclick="showScreen('home')">← Home</button></div>
+<h2 class="title">Formula Guide</h2><p class="subtitle">Core formulas used by GeoSolve.</p><div id="formulaList" class="formula-list"></div>
+</section>
+
+<section id="properties" class="screen">
+<div class="topbar"><div class="brand">△ GeoSolve</div><button class="back" onclick="showScreen('home')">← Home</button></div>
+<h2 class="title">Properties Guide</h2><p class="subtitle">Important properties for each quadrilateral.</p><div id="propertyGuide" class="grid"></div>
+</section>
+</div>
+
+<script>
+const shapes=[
+["Parallelogram","▱","Opposite sides are parallel and congruent."],
+["Trapezoid","⏢","One pair of parallel sides."],
+["Kite","◇","Two pairs of adjacent congruent sides."],
+["Rectangle","▭","Four right angles; opposite sides congruent."],
+["Square","□","Four equal sides and four right angles."],
+["Rhombus","◇","Four equal sides; opposite sides parallel."]
+];
+const properties={
+Parallelogram:["Opposite sides are parallel.","Opposite sides are congruent.","Opposite angles are congruent.","Consecutive angles are supplementary.","Diagonals bisect each other."],
+Trapezoid:["One pair of opposite sides is parallel.","Parallel sides are called bases.","Height is the perpendicular distance between bases.","Angles along a leg are supplementary."],
+Kite:["Two pairs of adjacent sides are congruent.","One pair of opposite angles is congruent.","Diagonals are perpendicular.","One diagonal bisects the other."],
+Rectangle:["Opposite sides are parallel and congruent.","All four angles are 90°.","Diagonals are congruent.","Diagonals bisect each other."],
+Square:["All four sides are congruent.","All four angles are 90°.","Opposite sides are parallel.","Diagonals are congruent, perpendicular, and bisect each other."],
+Rhombus:["All four sides are congruent.","Opposite sides are parallel.","Opposite angles are congruent.","Diagonals are perpendicular and bisect each other."]
+};
+const problems={
+Parallelogram:[["Area","A","Find area from base and height."],["Perimeter","P","Find perimeter from two sides."],["Missing Side","S","Find a side from the perimeter."],["Missing Height","H","Find height from area and base."],["Missing Angle","∠","Find a related angle using parallel-side angle relationships."],["Diagonals","D","Find/check a diagonal using the Pythagorean theorem when enough data is given."],["Properties","★","Review properties."]],
+Trapezoid:[["Area","A","Find area from both bases and height."],["Perimeter","P","Find perimeter from four sides."],["Missing Height","H","Find height from area and bases."],["Missing Base","B","Find a base from area, the other base, and height."],["Missing Angle","∠","Find supplementary angle relationships."],["Properties","★","Review properties."]],
+Kite:[["Area","A","Find area from the diagonals."],["Perimeter","P","Find perimeter from the two pairs of equal sides."],["Missing Diagonal","D","Find a diagonal from area and the other diagonal."],["Missing Side","S","Find a side from the perimeter."],["Missing Angle","∠","Use the kite's congruent-angle relationship."],["Properties","★","Review properties."]],
+Rectangle:[["Area","A","Find area from length and width."],["Perimeter","P","Find perimeter from length and width."],["Missing Length","L","Find length using area and width."],["Missing Width","W","Find width using area and length."],["Diagonal","D","Find diagonal using the Pythagorean theorem."],["Missing Angle","∠","Every interior angle is 90°."],["Properties","★","Review properties."]],
+Square:[["Area","A","Find area from side."],["Perimeter","P","Find perimeter from side."],["Missing Side","S","Find side from area or perimeter."],["Diagonal","D","Find diagonal from side."],["Missing Angle","∠","Every interior angle is 90°."],["Properties","★","Review properties."]],
+Rhombus:[["Area","A","Find area from diagonals."],["Perimeter","P","Find perimeter from side."],["Missing Side","S","Find side from perimeter."],["Diagonal","D","Find a diagonal using area and the other diagonal."],["Missing Angle","∠","Use opposite/consecutive angle relationships."],["Properties","★","Review properties."]]
+};
+const formulas={
+Parallelogram:[["Area","A = b × h"],["Perimeter","P = 2(a + b)"],["Missing height","h = A ÷ b"],["Angles","Opposite angles are equal; consecutive angles sum to 180°."],["Diagonals","If diagonals form a right triangle with half-sides: d² = a² + b²."]],
+Trapezoid:[["Area","A = (a + b)h ÷ 2"],["Perimeter","P = a + b + c + d"],["Missing height","h = 2A ÷ (a + b)"],["Missing base","b = 2A ÷ h − a"],["Angles","Consecutive angles along a leg are supplementary."]],
+Kite:[["Area","A = d₁d₂ ÷ 2"],["Perimeter","P = 2(a + b)"],["Missing diagonal","d₂ = 2A ÷ d₁"],["Angles","One pair of opposite angles is congruent."],["Diagonals","Diagonals are perpendicular."]],
+Rectangle:[["Area","A = lw"],["Perimeter","P = 2(l + w)"],["Diagonal","d = √(l² + w²)"],["Angles","All angles are 90°."],["Missing length/width","l = A ÷ w; w = A ÷ l"]],
+Square:[["Area","A = s²"],["Perimeter","P = 4s"],["Diagonal","d = s√2"],["Side from area","s = √A"],["Angles","All angles are 90°."]],
+Rhombus:[["Area","A = d₁d₂ ÷ 2"],["Perimeter","P = 4s"],["Missing side","s = P ÷ 4"],["Diagonal","d₂ = 2A ÷ d₁"],["Angles","Opposite angles are equal; consecutive angles sum to 180°."]]
+};
+let shape="",problem="",currentTab="calc";
+
+function showScreen(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"});}
+function init(){
+ const sg=document.getElementById("shapeGrid");
+ sg.innerHTML=shapes.map(s=>`<button class="card choice" onclick="selectShape('${s[0]}')"><div class="shape">${s[1]}</div><h3>${s[0]}</h3><p>${s[2]}</p></button>`).join("");
+ document.getElementById("formulaList").innerHTML=Object.entries(formulas).map(([k,v])=>`<div class="card"><h3>${k}</h3>${v.map(x=>`<div class="formula-row"><b>${x[0]}</b>${x[1]}</div>`).join("")}</div>`).join("");
+ document.getElementById("propertyGuide").innerHTML=Object.entries(properties).map(([k,v])=>`<div class="card"><h3>${k}</h3><ul class="property-list">${v.map(x=>`<li>${x}</li>`).join("")}</ul></div>`).join("");
+}
+function selectShape(s){shape=s;document.getElementById("shapeTitle").textContent=s+" — Choose a Problem";document.getElementById("problemGrid").innerHTML=problems[s].map(x=>`<button class="card problem" onclick="selectProblem('${x[0]}')"><div class="icon">${x[1]}</div><div><h3>${x[0]}</h3><p>${x[2]}</p></div></button>`).join("");showScreen("problems");}
+function selectProblem(p){problem=p;document.getElementById("solverTitle").textContent=shape+" — "+p;document.getElementById("solverSubtitle").textContent="Enter the measurements given in your problem.";document.getElementById("error").textContent="";document.getElementById("solution").innerHTML='<p class="subtitle">Enter values and press <b>SOLVE</b>.</p>';renderDiagram();renderInputs();switchTab("calc");showScreen("solver");}
+function switchTab(t){currentTab=t;document.getElementById("calcTab").classList.toggle("active",t==="calc");document.getElementById("propTab").classList.toggle("active",t==="prop");if(t==="prop")showProperties();else{document.getElementById("solution").innerHTML='<p class="subtitle">Enter values and press <b>SOLVE</b>.</p>';}}
+function field(id,label,placeholder=""){return `<label>${label}<input id="${id}" type="number" min="0" step="any" placeholder="${placeholder}"></label>`}
+function val(id){let x=parseFloat(document.getElementById(id)?.value);return Number.isFinite(x)?x:null}
+function requireAll(a){if(a.some(x=>x===null||x<=0))throw"Please enter positive values in every field."}
+function fmt(x){return Number(x.toFixed(6)).toString()}
+function renderInputs(){
+ let h="";
+ if(problem==="Properties")h="<p class='subtitle'>Use the Properties tab to study this shape.</p>";
+ else if(shape==="Parallelogram"){
+  if(problem==="Area")h=field("b","Base b")+field("h","Height h");
+  if(problem==="Perimeter")h=field("a","Side a")+field("b","Side b");
+  if(problem==="Missing Side")h=field("P","Perimeter P")+field("a","Known side a");
+  if(problem==="Missing Height")h=field("A","Area A")+field("b","Base b");
+  if(problem==="Missing Angle")h=field("A1","Known angle (°)");
+  if(problem==="Diagonals")h=field("a","Side a")+field("b","Side b");
+ }else if(shape==="Trapezoid"){
+  if(problem==="Area")h=field("a","Base a")+field("b","Base b")+field("h","Height h");
+  if(problem==="Perimeter")h=field("a","Side a")+field("b","Side b")+field("c","Side c")+field("d","Side d");
+  if(problem==="Missing Height")h=field("A","Area A")+field("a","Base a")+field("b","Base b");
+  if(problem==="Missing Base")h=field("A","Area A")+field("a","Known base a")+field("h","Height h");
+  if(problem==="Missing Angle")h=field("A1","Known angle (°)");
+ }else if(shape==="Kite"){
+  if(problem==="Area")h=field("d1","Diagonal d₁")+field("d2","Diagonal d₂");
+  if(problem==="Perimeter")h=field("a","Side a")+field("b","Side b");
+  if(problem==="Missing Diagonal")h=field("A","Area A")+field("d1","Known diagonal d₁");
+  if(problem==="Missing Side")h=field("P","Perimeter P")+field("a","Known side a");
+  if(problem==="Missing Angle")h=field("A1","Known congruent angle (°)");
+ }else if(shape==="Rectangle"){
+  if(problem==="Area"||problem==="Perimeter")h=field("l","Length l")+field("w","Width w");
+  if(problem==="Missing Length")h=field("A","Area A")+field("w","Width w");
+  if(problem==="Missing Width")h=field("A","Area A")+field("l","Length l");
+  if(problem==="Diagonal")h=field("l","Length l")+field("w","Width w");
+  if(problem==="Missing Angle")h="<p class='subtitle'>No input needed.</p>";
+ }else if(shape==="Square"){
+  if(problem==="Area"||problem==="Perimeter")h=field("s","Side s");
+  if(problem==="Missing Side")h="<label>Choose known measurement<select id='known'><option value='A'>Area</option><option value='P'>Perimeter</option></select></label>"+field("x","Known value");
+  if(problem==="Diagonal")h=field("s","Side s");
+  if(problem==="Missing Angle")h="<p class='subtitle'>No input needed.</p>";
+ }else if(shape==="Rhombus"){
+  if(problem==="Area")h=field("d1","Diagonal d₁")+field("d2","Diagonal d₂");
+  if(problem==="Perimeter")h=field("s","Side s");
+  if(problem==="Missing Side")h=field("P","Perimeter P");
+  if(problem==="Diagonal")h=field("A","Area A")+field("d1","Known diagonal d₁");
+  if(problem==="Missing Angle")h=field("A1","Known angle (°)");
+ }
+ document.getElementById("inputs").innerHTML=h;
+}
+function calculate(){
+ if(problem==="Properties"){showProperties();return}
+ const e=document.getElementById("error");e.textContent="";
+ try{
+  let ans="",formula="",steps="";
+  if(shape==="Parallelogram"){
+   if(problem==="Area"){let b=val("b"),h=val("h");requireAll([b,h]);let A=b*h;ans=`Area = ${fmt(A)} cm²`;formula="A = b × h";steps=`A = ${b} × ${h}<br><b>A = ${fmt(A)} cm²</b>`}
+   else if(problem==="Perimeter"){let a=val("a"),b=val("b");requireAll([a,b]);let P=2*(a+b);ans=`Perimeter = ${fmt(P)} cm`;formula="P = 2(a + b)";steps=`P = 2(${a} + ${b})<br><b>P = ${fmt(P)} cm</b>`}
+   else if(problem==="Missing Side"){let P=val("P"),a=val("a");requireAll([P,a]);let b=P/2-a;if(b<=0)throw"Check the perimeter and known side.";ans=`Missing side b = ${fmt(b)} cm`;formula="b = P ÷ 2 − a";steps=`b = ${P} ÷ 2 − ${a}<br><b>b = ${fmt(b)} cm</b>`}
+   else if(problem==="Missing Height"){let A=val("A"),b=val("b");requireAll([A,b]);let h=A/b;ans=`Height = ${fmt(h)} cm`;formula="h = A ÷ b";steps=`h = ${A} ÷ ${b}<br><b>h = ${fmt(h)} cm</b>`}
+   else if(problem==="Missing Angle"){let A=val("A1");requireAll([A]);let x=180-A;ans=`Related angle = ${fmt(x)}°`;formula="Consecutive angles = 180°";steps=`180° − ${A}°<br><b>${fmt(x)}°</b>`}
+   else if(problem==="Diagonals"){let a=val("a"),b=val("b");requireAll([a,b]);let d=Math.sqrt(a*a+b*b);ans=`Diagonal ≈ ${fmt(d)} cm`;formula="d = √(a² + b²)";steps=`d = √(${a}² + ${b}²)<br><b>d ≈ ${fmt(d)} cm</b>`}
+  }else if(shape==="Trapezoid"){
+   if(problem==="Area"){let a=val("a"),b=val("b"),h=val("h");requireAll([a,b,h]);let A=(a+b)*h/2;ans=`Area = ${fmt(A)} cm²`;formula="A = (a + b)h ÷ 2";steps=`A = (${a} + ${b}) × ${h} ÷ 2<br><b>A = ${fmt(A)} cm²</b>`}
+   else if(problem==="Perimeter"){let a=val("a"),b=val("b"),c=val("c"),d=val("d");requireAll([a,b,c,d]);let P=a+b+c+d;ans=`Perimeter = ${fmt(P)} cm`;formula="P = a + b + c + d";steps=`P = ${a} + ${b} + ${c} + ${d}<br><b>P = ${fmt(P)} cm</b>`}
+   else if(problem==="Missing Height"){let A=val("A"),a=val("a"),b=val("b");requireAll([A,a,b]);let h=2*A/(a+b);ans=`Height = ${fmt(h)} cm`;formula="h = 2A ÷ (a + b)";steps=`h = 2(${A}) ÷ (${a} + ${b})<br><b>h = ${fmt(h)} cm</b>`}
+   else if(problem==="Missing Base"){let A=val("A"),a=val("a"),h=val("h");requireAll([A,a,h]);let b=2*A/h-a;if(b<=0)throw"Check your values.";ans=`Missing base b = ${fmt(b)} cm`;formula="b = 2A ÷ h − a";steps=`b = 2(${A}) ÷ ${h} − ${a}<br><b>b = ${fmt(b)} cm</b>`}
+   else if(problem==="Missing Angle"){let A=val("A1");requireAll([A]);let x=180-A;ans=`Supplementary angle = ${fmt(x)}°`;formula="Angles on a leg sum to 180°";steps=`180° − ${A}° = <b>${fmt(x)}°</b>`}
+  }else if(shape==="Kite"){
+   if(problem==="Area"){let d1=val("d1"),d2=val("d2");requireAll([d1,d2]);let A=d1*d2/2;ans=`Area = ${fmt(A)} cm²`;formula="A = d₁d₂ ÷ 2";steps=`A = (${d1} × ${d2}) ÷ 2<br><b>A = ${fmt(A)} cm²</b>`}
+   else if(problem==="Perimeter"){let a=val("a"),b=val("b");requireAll([a,b]);let P=2*(a+b);ans=`Perimeter = ${fmt(P)} cm`;formula="P = 2(a + b)";steps=`P = 2(${a} + ${b})<br><b>P = ${fmt(P)} cm</b>`}
+   else if(problem==="Missing Diagonal"){let A=val("A"),d1=val("d1");requireAll([A,d1]);let d2=2*A/d1;ans=`Missing diagonal = ${fmt(d2)} cm`;formula="d₂ = 2A ÷ d₁";steps=`d₂ = 2(${A}) ÷ ${d1}<br><b>d₂ = ${fmt(d2)} cm</b>`}
+   else if(problem==="Missing Side"){let P=val("P"),a=val("a");requireAll([P,a]);let b=P/2-a;if(b<=0)throw"Check your values.";ans=`Other side b = ${fmt(b)} cm`;formula="b = P ÷ 2 − a";steps=`b = ${P} ÷ 2 − ${a}<br><b>b = ${fmt(b)} cm</b>`}
+   else if(problem==="Missing Angle"){let A=val("A1");requireAll([A]);ans=`Congruent angle = ${fmt(A)}°`;formula="Congruent angles have equal measures";steps=`The matching opposite angle has the same measure.<br><b>${fmt(A)}°</b>`}
+  }else if(shape==="Rectangle"){
+   if(problem==="Area"){let l=val("l"),w=val("w");requireAll([l,w]);let A=l*w;ans=`Area = ${fmt(A)} cm²`;formula="A = lw";steps=`A = ${l} × ${w}<br><b>A = ${fmt(A)} cm²</b>`}
+   else if(problem==="Perimeter"){let l=val("l"),w=val("w");requireAll([l,w]);let P=2*(l+w);ans=`Perimeter = ${fmt(P)} cm`;formula="P = 2(l + w)";steps=`P = 2(${l} + ${w})<br><b>P = ${fmt(P)} cm</b>`}
+   else if(problem==="Missing Length"){let A=val("A"),w=val("w");requireAll([A,w]);let l=A/w;ans=`Length = ${fmt(l)} cm`;formula="l = A ÷ w";steps=`l = ${A} ÷ ${w}<br><b>l = ${fmt(l)} cm</b>`}
+   else if(problem==="Missing Width"){let A=val("A"),l=val("l");requireAll([A,l]);let w=A/l;ans=`Width = ${fmt(w)} cm`;formula="w = A ÷ l";steps=`w = ${A} ÷ ${l}<br><b>w = ${fmt(w)} cm</b>`}
+   else if(problem==="Diagonal"){let l=val("l"),w=val("w");requireAll([l,w]);let d=Math.sqrt(l*l+w*w);ans=`Diagonal ≈ ${fmt(d)} cm`;formula="d = √(l² + w²)";steps=`d = √(${l}² + ${w}²)<br><b>d ≈ ${fmt(d)} cm</b>`}
+   else if(problem==="Missing Angle"){ans="Each interior angle = 90°";formula="Rectangle definition";steps="All four interior angles are right angles.<br><b>90°</b>"}
+  }else if(shape==="Square"){
+   if(problem==="Area"){let s=val("s");requireAll([s]);let A=s*s;ans=`Area = ${fmt(A)} cm²`;formula="A = s²";steps=`A = ${s}²<br><b>A = ${fmt(A)} cm²</b>`}
+   else if(problem==="Perimeter"){let s=val("s");requireAll([s]);let P=4*s;ans=`Perimeter = ${fmt(P)} cm`;formula="P = 4s";steps=`P = 4(${s})<br><b>P = ${fmt(P)} cm</b>`}
+   else if(problem==="Missing Side"){let x=val("x");requireAll([x]);let k=document.getElementById("known").value,s=k==="A"?Math.sqrt(x):x/4;ans=`Side = ${fmt(s)} cm`;formula=k==="A"?"s = √A":"s = P ÷ 4";steps=k==="A"?`s = √${x}<br><b>s = ${fmt(s)} cm</b>`:`s = ${x} ÷ 4<br><b>s = ${fmt(s)} cm</b>`}
+   else if(problem==="Diagonal"){let s=val("s");requireAll([s]);let d=s*Math.sqrt(2);ans=`Diagonal ≈ ${fmt(d)} cm`;formula="d = s√2";steps=`d = ${s}√2<br><b>d ≈ ${fmt(d)} cm</b>`}
+   else if(problem==="Missing Angle"){ans="Each interior angle = 90°";formula="Square has four right angles";steps="<b>90°</b>"}
+  }else if(shape==="Rhombus"){
+   if(problem==="Area"){let d1=val("d1"),d2=val("d2");requireAll([d1,d2]);let A=d1*d2/2;ans=`Area = ${fmt(A)} cm²`;formula="A = d₁d₂ ÷ 2";steps=`A = (${d1} × ${d2}) ÷ 2<br><b>A = ${fmt(A)} cm²</b>`}
+   else if(problem==="Perimeter"){let s=val("s");requireAll([s]);let P=4*s;ans=`Perimeter = ${fmt(P)} cm`;formula="P = 4s";steps=`P = 4(${s})<br><b>P = ${fmt(P)} cm</b>`}
+   else if(problem==="Missing Side"){let P=val("P");requireAll([P]);let s=P/4;ans=`Side = ${fmt(s)} cm`;formula="s = P ÷ 4";steps=`s = ${P} ÷ 4<br><b>s = ${fmt(s)} cm</b>`}
+   else if(problem==="Diagonal"){let A=val("A"),d1=val("d1");requireAll([A,d1]);let d2=2*A/d1;ans=`Missing diagonal ≈ ${fmt(d2)} cm`;formula="d₂ = 2A ÷ d₁";steps=`d₂ = 2(${A}) ÷ ${d1}<br><b>d₂ = ${fmt(d2)} cm</b>`}
+   else if(problem==="Missing Angle"){let A=val("A1");requireAll([A]);let x=180-A;ans=`Related angle = ${fmt(x)}°`;formula="Consecutive angles sum to 180°";steps=`180° − ${A}°<br><b>${fmt(x)}°</b>`}
+  }
+  document.getElementById("solution").innerHTML=`<div class="result"><span class="badge">${shape}</span><div class="answer">${ans}</div><div class="formula">${formula}</div><div class="steps">${steps}</div></div><div class="result"><b>Check:</b> Make sure the units and measurements match your original problem.</div>`;
+  saveHistory(`${shape} — ${problem}`,ans);
+ }catch(x){e.textContent=typeof x==="string"?x:"Please enter valid positive values."}
+}
+function showProperties(){document.getElementById("solution").innerHTML=`<div class="result"><div class="answer">${shape}</div><ul class="property-list">${properties[shape].map(x=>`<li>${x}</li>`).join("")}</ul></div>`}
+function renderDiagram(){
+ let c="#3f8f72",s="";
+ if(shape==="Parallelogram")s=`<svg viewBox="0 0 300 180"><polygon points="65,135 220,135 255,55 100,55" fill="none" stroke="${c}" stroke-width="7"/><text x="135" y="158" fill="${c}">base</text></svg>`;
+ if(shape==="Trapezoid")s=`<svg viewBox="0 0 300 180"><polygon points="70,135 230,135 195,55 105,55" fill="none" stroke="${c}" stroke-width="7"/></svg>`;
+ if(shape==="Kite")s=`<svg viewBox="0 0 300 180"><polygon points="150,25 235,90 150,155 65,90" fill="none" stroke="${c}" stroke-width="7"/><line x1="150" y1="25" x2="150" y2="155" stroke="${c}" stroke-width="3" stroke-dasharray="7 6"/></svg>`;
+ if(shape==="Rectangle")s=`<svg viewBox="0 0 300 180"><rect x="55" y="45" width="190" height="100" fill="none" stroke="${c}" stroke-width="7"/></svg>`;
+ if(shape==="Square")s=`<svg viewBox="0 0 300 180"><rect x="95" y="35" width="110" height="110" fill="none" stroke="${c}" stroke-width="7"/></svg>`;
+ if(shape==="Rhombus")s=`<svg viewBox="0 0 300 180"><polygon points="150,25 245,90 150,155 55,90" fill="none" stroke="${c}" stroke-width="7"/><line x1="55" y1="90" x2="245" y2="90" stroke="${c}" stroke-width="3" stroke-dasharray="7 6"/><line x1="150" y1="25" x2="150" y2="155" stroke="${c}" stroke-width="3" stroke-dasharray="7 6"/></svg>`;
+ document.getElementById("shapeDiagram").innerHTML=s;
+}
+function solveWordProblem(){
+ const raw=document.getElementById("wordProblem").value.trim(),err=document.getElementById("wordError"),out=document.getElementById("wordSolution");err.textContent="";
+ if(!raw){err.textContent="Please type a problem first.";return}
+ const t=raw.toLowerCase().replace(/,/g,""), nums=[...t.matchAll(/(\d+(?:\.\d+)?)\s*(?:cm|m|°|degrees)?/g)].map(m=>Number(m[1]));
+ let result=null;
+ const has=(...words)=>words.some(w=>t.includes(w));
+ try{
+  if(has("rectangle")&&has("area")&&nums.length>=2){let A=nums[0]*nums[1];result=["Rectangle area","A = l × w",`${nums[0]} × ${nums[1]} = ${fmt(A)} cm²`]}
+  else if(has("rectangle")&&has("perimeter")&&nums.length>=2){let P=2*(nums[0]+nums[1]);result=["Rectangle perimeter","P = 2(l + w)",`2(${nums[0]} + ${nums[1]}) = ${fmt(P)} cm`]}
+  else if(has("square")&&has("area")&&nums.length>=1){let A=nums[0]*nums[0];result=["Square area","A = s²",`${nums[0]}² = ${fmt(A)} cm²`]}
+  else if(has("square")&&has("perimeter")&&nums.length>=1){let P=4*nums[0];result=["Square perimeter","P = 4s",`4(${nums[0]}) = ${fmt(P)} cm`]}
+  else if(has("square")&&has("diagonal")&&nums.length>=1){let d=nums[0]*Math.sqrt(2);result=["Square diagonal","d = s√2",`${nums[0]}√2 ≈ ${fmt(d)} cm`]}
+  else if(has("parallelogram")&&has("area")&&nums.length>=2){let A=nums[0]*nums[1];result=["Parallelogram area","A = bh",`${nums[0]} × ${nums[1]} = ${fmt(A)} cm²`]}
+  else if(has("trapezoid")&&has("area")&&nums.length>=3){let A=(nums[0]+nums[1])*nums[2]/2;result=["Trapezoid area","A = (a+b)h ÷ 2",`(${nums[0]} + ${nums[1]}) × ${nums[2]} ÷ 2 = ${fmt(A)} cm²`]}
+  else if(has("kite")&&has("area")&&nums.length>=2){let A=nums[0]*nums[1]/2;result=["Kite area","A = d₁d₂ ÷ 2",`(${nums[0]} × ${nums[1]}) ÷ 2 = ${fmt(A)} cm²`]}
+  else if(has("rhombus")&&has("area")&&nums.length>=2){let A=nums[0]*nums[1]/2;result=["Rhombus area","A = d₁d₂ ÷ 2",`(${nums[0]} × ${nums[1]}) ÷ 2 = ${fmt(A)} cm²`]}
+  else if(has("rectangle")&&has("diagonal")&&nums.length>=2){let d=Math.sqrt(nums[0]**2+nums[1]**2);result=["Rectangle diagonal","d = √(l²+w²)",`√(${nums[0]}² + ${nums[1]}²) ≈ ${fmt(d)} cm`]}
+  else throw"Try a problem containing a shape, a measurement, and words such as area, perimeter, or diagonal.";
+  out.innerHTML=`<div class="result"><span class="badge">Recognized</span><div class="answer">${result[0]}</div><div class="formula">${result[1]}</div><div class="steps"><b>Solution:</b><br>${result[2]}</div></div><div class="result"><b>Note:</b> The word solver handles common, clearly stated problems. For more complex problems, use the calculator sections.</div>`;
+  saveHistory("Word problem",result[0]+" — "+result[2]);
+ }catch(x){err.textContent=x}
+}
+function saveHistory(title,answer){
+ let h=JSON.parse(localStorage.getItem("geoHistory")||"[]");h.unshift({title,answer,date:new Date().toLocaleString()});h=h.slice(0,15);localStorage.setItem("geoHistory",JSON.stringify(h));
+}
+let deferredInstallPrompt=null;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstallPrompt=e;document.getElementById("installBtn").classList.remove("hidden")});
+document.getElementById("installBtn").addEventListener("click",async()=>{if(!deferredInstallPrompt)return;deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;document.getElementById("installBtn").classList.add("hidden")});
+if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+init();
+</script>
+</body></html>

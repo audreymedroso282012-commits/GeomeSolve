@@ -1,0 +1,12 @@
+{
+  "name":"GeoSolve — Advanced Geometry Solver",
+  "short_name":"GeoSolve",
+  "description":"Advanced quadrilateral geometry solver for students.",
+  "start_url":"./",
+  "scope":"./",
+  "display":"standalone",
+  "orientation":"portrait-primary",
+  "background_color":"#fffdf7",
+  "theme_color":"#69b89a",
+  "icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
